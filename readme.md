@@ -8,9 +8,9 @@
 * 脚本只进行简单了计算，公选超过25学分的"神人"自己看着办吧。
 
 ## 使用
-* 首先从教务系统导出自己的excel成绩表（假如名称为: zhangshan.xls）。
+* 首先从教务系统导出自己的excel成绩表（假如名称为: scores.xls）。
 * 然后执行如下命令
 ```
-python GPACalculator.py zhangshan.xls
+python GPACalculator.py scores.xls
 ```
 
