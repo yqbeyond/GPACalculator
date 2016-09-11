@@ -18,7 +18,11 @@ dst[u'良好'] = 85.0
 dst[u'中等'] = 75.0
 dst[u'及格'] = 65.0
 
-cet4_and_6_score = 494 + 0 # CET 4 + CET 6
+# liushiyu cet4_and_6_score = 591 + 577 # CET 4 + CET 6
+# yuanqi cet4_and_6_score = 494 + 0 # CET 4 + CET 6
+# dairui cet4_and_6_score = 525 + 447 # CET 4 + CET 6
+# cet4_and_6_score = 439 + 451 # suzhaoxin
+cet4_and_6_score = 425 + 483 # zhou guang yuan
 
 if __name__ == "__main__":
     filename = sys.argv[1]
@@ -75,11 +79,24 @@ if __name__ == "__main__":
     elective_public_ = sum(elective_public_scores) * 0.0005
     cet4_and_6 = cet4_and_6_score / 710.0 * 100.0 * 0.0005 * 2
 
-    print "\n结果：\n专业课+限选课：" + str(obligatory_plus_elective_private)
-    print "公选课：" + str(elective_public_)
-    print "CET4 + CET6： " + str(cet4_and_6) + " (" +str(cet4_and_6_score) + ")"
+    print "\n必修课：" + str(sum(obligatory_scores) / sum(obligatory_credits)) + \
+            " 学分：" + str(sum(obligatory_credits)) + \
+            " 总分：" + str(sum(obligatory_scores))
 
-    final_scores = obligatory_plus_elective_private + elective_public_ + cet4_and_6
+    print "\n限选课：" + str(sum(elective_private_scores) / sum(elective_private_credits)) + \
+            " 学分：" + str(sum(elective_private_credits)) + \
+            " 总分：" + str(sum(elective_private_scores))
+
+    print "\n必修课+限选课：" + str(obligatory_plus_elective_private) + \
+            " 学分："+ str(sum(obligatory_credits) + sum(elective_private_credits)) + \
+            " 总分：" + str(sum(obligatory_scores) + sum(elective_private_scores))
+
+    print "\n公选课：" + str(elective_public_) + " 学分：" + str(sum(elective_public_credits)) + " 总分：" + str(sum(elective_public_scores))
+
+    print "\n四六级: " + str(cet4_and_6) + " (" +str(cet4_and_6_score) + ") 学分：4"
+    print "\n四六级+公选：" + str(elective_public_ + cet4_and_6) + " 学分：" + str(sum(elective_public_credits) + 4)
+
+    final_scores = obligatory_plus_elective_private + elective_public_ + cet4_and_6 # 四级
 
     print "\n智育学分：" + str(final_scores)
 
