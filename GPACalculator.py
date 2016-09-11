@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 '''
 说明：
+
 * 脚本仅计算了智育学分
 * 将第20行代码换成自己的CET-4、CET-6成绩
-* 公选超过25学分的"神人"自己看着办吧。
+* 公选超过25学分的"神人"自己看着办吧（在成绩(scores.xls)表中删除自己不需要的公选成绩条目）。
+* 有学分冲抵的可以将冲抵后的成绩重新添入表中计算
 
 '''
 
@@ -11,22 +13,18 @@ import xdrlib
 import xlrd
 import sys
 
-dst = {}
+_dict = {}
 
-dst[u'优秀'] = 95.0
-dst[u'良好'] = 85.0
-dst[u'中等'] = 75.0
-dst[u'及格'] = 65.0
+_dict[u'优秀'] = 95.0
+_dict[u'良好'] = 85.0
+_dict[u'中等'] = 75.0
+_dict[u'及格'] = 65.0
 
-# liushiyu cet4_and_6_score = 591 + 577 # CET 4 + CET 6
-# yuanqi cet4_and_6_score = 494 + 0 # CET 4 + CET 6
-# dairui cet4_and_6_score = 525 + 447 # CET 4 + CET 6
-# cet4_and_6_score = 439 + 451 # suzhaoxin
-cet4_and_6_score = 425 + 483 # zhou guang yuan
+cet4_and_6_score = 426 + 426 # CET4 + CET6
 
 if __name__ == "__main__":
     filename = sys.argv[1]
-    # list结构{"课程名称": ["成绩"， "学分", "成绩*学分", "课程类型"}
+    # 字典结构{"课程名称": ["成绩"， "学分", "成绩*学分", "课程类型"}
     obligatory = {} # 必修
     elective_private = {} # 限选
     elective_public  = {} # 公选
@@ -39,10 +37,10 @@ if __name__ == "__main__":
     for row in range(3, n_rows ):
         _name = table.cell(row, 3).value
         _score = table.cell(row, 4).value
-        if _score not in dst.keys():
+        if _score not in _dict.keys():
             _score = float(table.cell(row, 4).value)
         else:
-            _score = dst[_score]
+            _score = _dict[_score]
         _credit = float(table.cell(row, 9).value)
         _type = table.cell(row, 7).value
         
